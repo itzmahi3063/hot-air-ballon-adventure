@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hot Air Balloon Adventure — Loading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    height:100%;
+    background:#0a0e2e;
+    overflow:hidden;
+  }
+
+  .wrap {
+    position:relative;
+    margin:0 auto;
+    /* keep the exact 768:1376 artwork ratio, fit inside the viewport like object-fit:contain */
+    width:  min(100vw, calc(100dvh * 768 / 1376));
+    height: min(100dvh, calc(100vw * 1376 / 768));
+  }
+
+  .art {
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    user-select:none;
+    -webkit-user-drag:none;
+    pointer-events:none;
+  }
+
+  /* ---- live progress bar, positioned exactly where the original bar sits on the artwork ---- */
+  .bar-shell {
+    position:absolute;
+    left: 18.2%;
+    width: 53.8%;
+    top: 88.9%;
+    height: 4.35%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #17335f, #0c2144);
+    border-style: solid;
+    border-width: clamp(2px, 0.9vw, 4px);
+    border-color: #d9e8ff;
+    box-shadow:
+      inset 0 2px 5px rgba(0,0,0,.55),
+      0 3px 0 rgba(0,0,0,.25);
+    overflow:hidden;
+  }
+  .bar-fill {
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background: linear-gradient(180deg, #ffe27a 0%, #ffc94d 45%, #ff9d2e 100%);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,.6), inset 0 -6px 8px rgba(180,90,0,.35);
+    transition: width .35s ease-out;
+    position:relative;
+  }
+  .bar-fill::after{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,.35) 0 10px, rgba(255,255,255,0) 10px 20px);
+    mix-blend-mode: overlay;
+    animation: shimmer 1.1s linear infinite;
+  }
+  @keyframes shimmer { from{background-position-x:0;} to{background-position-x:40px;} }
+
+  .bar-pct {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size: clamp(11px, 3.6vw, 17px);
+    color:#5a2e00;
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
+    letter-spacing:.3px;
+  }
+
+  /* ---- status text, positioned where "LOADING..." used to be ---- */
+  .status {
+    position:absolute;
+    left:0; right:0;
+    top: 95.8%;
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size: clamp(13px, 4.4vw, 20px);
+    letter-spacing:.5px;
+    color:#eaf6ff;
+    -webkit-text-stroke: clamp(.6px, .35vw, 1.2px) #1f5da0;
+    text-shadow: 0 2px 0 #1f5da0, 0 4px 10px rgba(0,0,0,.35);
+  }
+  .status .dots::after {
+    content:'';
+    animation: dots 1.2s steps(4,end) infinite;
+  }
+  @keyframes dots {
+    0% { content:''; } 25% { content:'.'; } 50% { content:'..'; } 75% { content:'...'; } 100% { content:''; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar-fill::after { animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <img class="art" src="balloon-bg-clean.jpg" alt="Hot Air Balloon Adventure">
+
+  <div class="bar-shell">
+    <div class="bar-fill" id="barFill">
+      <div class="bar-pct" id="barPct">0%</div>
+    </div>
+  </div>
+
+  <div class="status" id="statusText">শুরু হচ্ছে<span class="dots"></span></div>
+</div>
+
+<script>
+  const stages = [
+    { pct: 12,  text: 'রিসোর্স জোগাড় হচ্ছে' },
+    { pct: 30,  text: 'বেলুন প্রস্তুত হচ্ছে' },
+    { pct: 48,  text: 'ম্যাপ আঁকা হচ্ছে' },
+    { pct: 65,  text: 'জেমস সাজানো হচ্ছে' },
+    { pct: 80,  text: 'সার্ভারের সাথে সংযোগ হচ্ছে' },
+    { pct: 93,  text: 'প্রায় রেডি' },
+    { pct: 100, text: 'অ্যাডভেঞ্চার শুরু' },
+  ];
+
+  const barFill  = document.getElementById('barFill');
+  const barPct   = document.getElementById('barPct');
+  const statusEl = document.getElementById('statusText');
+
+  let idx = 0;
+  function playStage() {
+    if (idx >= stages.length) {
+      idx = 0;                     // demo loop — remove when wiring to real load events
+      setTimeout(playStage, 900);
+      return;
+    }
+    const st = stages[idx];
+    barFill.style.width = st.pct + '%';
+    barPct.textContent  = st.pct + '%';
+    statusEl.innerHTML   = st.text + '<span class="dots"></span>';
+    idx++;
+    setTimeout(playStage, 650 + Math.random()*350);
+  }
+  playStage();
+
+  /*
+    বাস্তব লোডিং এর সাথে যুক্ত করতে:
+      function setProgress(pct, label){
+        barFill.style.width = pct + '%';
+        barPct.textContent  = pct + '%';
+        statusEl.innerHTML  = label + '<span class="dots"></span>';
+      }
+    তোমার bot/webapp init script থেকে এটা কল করবে, উপরের demo loop বাদ দিয়ে।
+  */
+</script>
+
+</body>
+</html>
