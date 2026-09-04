@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -116,18 +116,18 @@
     </div>
   </div>
 
-  <div class="status" id="statusText">শুরু হচ্ছে<span class="dots"></span></div>
+  <div class="status" id="statusText">Starting<span class="dots"></span></div>
 </div>
 
 <script>
   const stages = [
-    { pct: 12,  text: 'রিসোর্স জোগাড় হচ্ছে' },
-    { pct: 30,  text: 'বেলুন প্রস্তুত হচ্ছে' },
-    { pct: 48,  text: 'ম্যাপ আঁকা হচ্ছে' },
-    { pct: 65,  text: 'জেমস সাজানো হচ্ছে' },
-    { pct: 80,  text: 'সার্ভারের সাথে সংযোগ হচ্ছে' },
-    { pct: 93,  text: 'প্রায় রেডি' },
-    { pct: 100, text: 'অ্যাডভেঞ্চার শুরু' },
+    { pct: 12,  text: 'Loading resources' },
+    { pct: 30,  text: 'Preparing balloon' },
+    { pct: 48,  text: 'Drawing the map' },
+    { pct: 65,  text: 'Placing the gems' },
+    { pct: 80,  text: 'Connecting to server' },
+    { pct: 93,  text: 'Almost ready' },
+    { pct: 100, text: 'Adventure starting' },
   ];
 
   const barFill  = document.getElementById('barFill');
@@ -151,13 +151,13 @@
   playStage();
 
   /*
-    বাস্তব লোডিং এর সাথে যুক্ত করতে:
+    To wire this up to real loading events:
       function setProgress(pct, label){
         barFill.style.width = pct + '%';
         barPct.textContent  = pct + '%';
         statusEl.innerHTML  = label + '<span class="dots"></span>';
       }
-    তোমার bot/webapp init script থেকে এটা কল করবে, উপরের demo loop বাদ দিয়ে।
+    Call this from your bot/webapp init script, and remove the demo loop above.
   */
 </script>
 
