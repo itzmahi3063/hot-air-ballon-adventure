@@ -39,19 +39,33 @@
       </header>
 
       <section class="balance-card">
-        <div class="balance-top">
-          <div class="coin-badge">&#129689;</div>
-          <div class="balance-info">
-            <div class="balance-label">HAB Coin Balance</div>
-            <div class="balance-amount">0</div>
+        <div class="balance-card-inner">
+          <div class="balance-top">
+            <div class="coin-badge">
+              <svg viewBox="0 0 40 40">
+                <defs>
+                  <radialGradient id="coinGrad" cx="35%" cy="30%" r="75%">
+                    <stop offset="0%" stop-color="#fff6c8"/>
+                    <stop offset="55%" stop-color="#f4c542"/>
+                    <stop offset="100%" stop-color="#c98a1f"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="20" cy="20" r="18" fill="url(#coinGrad)" stroke="#a9720f" stroke-width="1.5"/>
+                <text x="20" y="27" font-family="Baloo 2, Arial, sans-serif" font-size="18" font-weight="800" fill="#7a4a05" text-anchor="middle">H</text>
+              </svg>
+            </div>
+            <div class="balance-info">
+              <div class="balance-label">HAB Coin Balance</div>
+              <div class="balance-amount">0</div>
+            </div>
+            <button class="withdraw-pill" id="btnWithdrawPill">&#8593; Withdraw</button>
           </div>
-          <button class="withdraw-pill" id="btnWithdrawPill">&#8593; Withdraw</button>
+          <div class="ledger-bar">
+            Ledger 5667990319 &bull; 50 HAB = 1 Impression<br>
+            $0.0000 after Convert (5% fee, CPM $0.2)
+          </div>
+          <div class="impressions-line">&#128167; 0 impressions &mdash; withdrawable now</div>
         </div>
-        <div class="ledger-bar">
-          Ledger 5667990319 &bull; 50 HAB = 1 Impression<br>
-          $0.0000 after Convert (5% fee, CPM $0.2)
-        </div>
-        <div class="impressions-line">&#128167; 0 impressions &mdash; withdrawable now</div>
       </section>
 
       <div class="tip-banner">&#127880; Withdraw your earnings straight to TON/USDT!</div>
