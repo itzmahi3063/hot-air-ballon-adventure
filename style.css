@@ -4,6 +4,7 @@ html, body {
   height:100%;
   background:#0a0e2e;
   overflow:hidden;
+  overscroll-behavior:none;
   font-family:'Nunito', 'Baloo 2', sans-serif;
 }
 
@@ -97,12 +98,14 @@ html, body {
 .content-scroll {
   flex:1 1 auto;
   overflow-y:auto;
+  overscroll-behavior-y:contain;
   -webkit-overflow-scrolling:touch;
 }
 .content-wrap {
   position:relative;
   width:100%;
-  padding-bottom:112px; /* keeps the last content clear of the floating nav bar */
+  margin-bottom:112px; /* scroll space for the floating nav — margin (not padding) so it
+                           doesn't affect the % positions of the buttons inside content-wrap */
 }
 .content-art {
   display:block;
