@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Hot Air Balloon</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <button class="icon-btn" id="closeBtn" aria-label="Close">
+      <svg viewBox="0 0 24 24"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="brand">
+      <span class="brand-logo">H</span>
+      <span class="brand-name">HOT AIR <b>BALLOON</b></span>
+    </div>
+    <button class="icon-btn" id="bellBtn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M12 3a5 5 0 0 0-5 5v3.2c0 .6-.2 1.2-.6 1.7L5 15h14l-1.4-2.1c-.4-.5-.6-1.1-.6-1.7V8a5 5 0 0 0-5-5Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9.5 18a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <!-- ===== SCROLLABLE CONTENT ===== -->
+  <main class="content">
+
+    <!-- ---------- HOME ---------- -->
+    <section class="view" id="view-home">
+
+      <div class="card profile-card">
+        <img class="avatar" id="pfAvatar" src="" alt="" />
+        <div class="profile-info">
+          <div class="profile-name" id="pfName">Loading…</div>
+          <div class="profile-sub">🎈 Welcome back!</div>
+          <div class="profile-meta">
+            <div class="meta-pill">
+              <span class="meta-label">UID</span>
+              <span class="meta-value" id="pfUid">—</span>
+            </div>
+            <div class="meta-pill">
+              <span class="meta-icon">🪙</span>
+              <span class="meta-value" id="pfCoin">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card balance-card">
+        <div class="balance-top">
+          <div class="balance-badge">
+            <span class="badge-h">H</span>
+            <div>
+              <div class="balance-label">HAB BALANCE</div>
+              <div class="balance-amount" id="habBalance">0</div>
+            </div>
+          </div>
+          <button class="btn-withdraw" id="withdrawBtn">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 19V5M12 5l-5 5M12 5l5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Withdraw
+          </button>
+        </div>
+        <div class="balance-sub">
+          <span>Ledger <b id="pfUid2">—</b> · 50,000 HAB = $1 · =</span>
+          <span id="usdAfterFee">$0.0000 after Convert (5% fee)</span>
+        </div>
+        <div class="balance-usdt">
+          <span>💰</span>
+          <span class="usdt-amount" id="usdtWithdrawable">$0.0000</span>
+          <span class="usdt-note">USDT — withdrawable now</span>
+        </div>
+      </div>
+
+      <div class="hint-strip">
+        <span class="dot-green"></span>
+        🎈 Withdraw your earnings straight to TON/USDT!
+      </div>
+
+      <div class="feature-grid">
+        <button class="feature-box fb-withdraw" data-nav="withdraw">
+          <div class="feature-icon"></div>
+          <div class="feature-title">Withdraw</div>
+          <div class="feature-sub">Withdraw your HAB to<br/>TON / USDT</div>
+          <div class="feature-arrow">→</div>
+        </button>
+        <button class="feature-box fb-scores" data-nav="scores">
+          <div class="feature-icon"></div>
+          <div class="feature-title">Top Scores</div>
+          <div class="feature-sub">See top players<br/>leaderboard</div>
+          <div class="feature-arrow">→</div>
+        </button>
+        <button class="feature-box fb-ads" data-nav="ads">
+          <div class="feature-icon"></div>
+          <div class="feature-title">Ads &amp; Earn</div>
+          <div class="feature-sub">Watch ads &amp; earn<br/>free HAB</div>
+          <div class="feature-arrow">→</div>
+        </button>
+        <button class="feature-box fb-game" data-tab="game">
+          <div class="feature-icon"></div>
+          <div class="feature-title">Fly Balloon Drive</div>
+          <div class="feature-sub">Play game &amp; earn<br/>more HAB</div>
+          <div class="feature-arrow">→</div>
+        </button>
+      </div>
+
+      <button class="invite-strip" data-tab="friends">
+        <span class="invite-emoji">🎁</span>
+        <div class="invite-text">
+          <div class="invite-title">Invite</div>
+          <div class="invite-sub">Invite friends &amp; earn HAB together</div>
+        </div>
+        <span class="invite-chevron">›</span>
+      </button>
+
+      <div class="card lifetime-card">
+        <div class="lifetime-head"><span class="dot-blue"></span> Lifetime stats</div>
+        <div class="lifetime-grid">
+          <div class="lifetime-stat">
+            <div class="lifetime-num" id="statEarned">0</div>
+            <div class="lifetime-lbl">Total HAB earned</div>
+          </div>
+          <div class="lifetime-stat">
+            <div class="lifetime-num" id="statReferrals">0</div>
+            <div class="lifetime-lbl">Referrals</div>
+          </div>
+          <div class="lifetime-stat">
+            <div class="lifetime-num" id="statWithdrawals">0</div>
+            <div class="lifetime-lbl">Withdrawals made</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------- TASK ---------- -->
+    <section class="view hidden" id="view-task">
+      <div class="section-head">
+        <span class="dot-blue"></span>
+        <div>
+          <div class="section-title">Task</div>
+          <div class="section-sub">Complete tasks to earn HAB.</div>
+        </div>
+      </div>
+
+      <div class="pill-tabs">
+        <button class="pill-tab active" data-task-tab="daily">📅 Daily</button>
+        <button class="pill-tab" data-task-tab="exclusive">⭐ Exclusive</button>
+        <button class="pill-tab" data-task-tab="partner">🤝 Partner</button>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-icon">🎈</div>
+        <div class="empty-text">No tasks in this category right now<br/>— check back later.</div>
+      </div>
+    </section>
+
+    <!-- ---------- GAME ---------- -->
+    <section class="view hidden" id="view-game">
+      <div class="game-hero">
+        <img src="balloon-hero.jpg" alt="Balloon Drive" />
+        <div class="game-hero-text">
+          <div class="game-hero-title">Balloon Drive</div>
+          <div class="game-hero-sub">Ride the air currents, earn HAB</div>
+        </div>
+      </div>
+
+      <button class="btn-play" id="playBtn">
+        <span>🎈 Play Air Ballon</span>
+        <span class="play-arrow">›</span>
+      </button>
+      <div class="play-best">🏆 Your best: <span id="bestScore">—</span> — collect drop-coins along the way for HAB</div>
+
+      <button class="list-row" data-nav="watch">
+        <div class="list-icon">📺</div>
+        <div class="list-text">
+          <div class="list-title">Watch &amp; Earn</div>
+          <div class="list-sub">Watch a short ad, get free HAB instantly</div>
+        </div>
+        <div class="list-chevron">›</div>
+      </button>
+
+      <button class="list-row" data-nav="convert">
+        <div class="list-icon">🔄</div>
+        <div class="list-text">
+          <div class="list-title">Convert</div>
+          <div class="list-sub">HAB → USDT, 5% fee · once a day</div>
+        </div>
+        <div class="list-chevron">›</div>
+      </button>
+
+      <button class="list-row" data-nav="promo">
+        <div class="list-icon">🎁</div>
+        <div class="list-text">
+          <div class="list-title">Promo Code</div>
+          <div class="list-sub">Redeem a code for free HAB</div>
+        </div>
+        <div class="list-chevron">›</div>
+      </button>
+    </section>
+
+    <!-- ---------- FRIENDS ---------- -->
+    <section class="view hidden" id="view-friends">
+      <div class="section-head">
+        <span class="dot-blue"></span>
+        <div>
+          <div class="section-title">Friends</div>
+          <div class="section-sub">Invite friends, earn HAB together.</div>
+        </div>
+        <div class="section-icon">👥</div>
+      </div>
+
+      <div class="card">
+        <div class="perk-row">
+          <div class="perk-icon">🎁</div>
+          <div class="perk-text">
+            <div class="perk-title">Referral Bonus</div>
+            <div class="perk-sub">When your friend joins &amp; verifies</div>
+          </div>
+          <div class="perk-value green">+30 <small>HAB</small></div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">✅</div>
+          <div class="perk-text">
+            <div class="perk-title">Task Bonus</div>
+            <div class="perk-sub">When your friend completes tasks</div>
+          </div>
+          <div class="perk-value purple">+280 <small>HAB</small></div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">💰</div>
+          <div class="perk-text">
+            <div class="perk-title">Commission</div>
+            <div class="perk-sub">On every withdrawal, forever</div>
+          </div>
+          <div class="perk-value blue">10% <small>COMM</small></div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-top">
+            <span class="stat-lbl">Total referrals</span>
+            <span class="stat-icn">👥</span>
+          </div>
+          <div class="stat-num blue" id="frTotal">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-top">
+            <span class="stat-lbl">Valid referrals</span>
+            <span class="stat-icn">🛡️</span>
+          </div>
+          <div class="stat-num green" id="frValid">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-top">
+            <span class="stat-lbl">Referral earnings</span>
+            <span class="stat-icn">🔗</span>
+          </div>
+          <div class="stat-num blue" id="frEarnings">0 <small>HAB</small></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-top">
+            <span class="stat-lbl">Commission earned</span>
+            <span class="stat-icn">🪙</span>
+          </div>
+          <div class="stat-num gold" id="frCommission">0 <small>HAB</small></div>
+        </div>
+      </div>
+
+      <div class="link-box">
+        <span id="refLink">https://t.me/hotairballon_bot/Play?startapp=—</span>
+        <button class="copy-btn" id="copyLinkBtn" aria-label="Copy link">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M5 15V6a1 1 0 0 1 1-1h9" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-share" id="shareRefBtn">🎈 Get Referrals</button>
+        <button class="btn-copy" id="copyRefBtn">Copy Link</button>
+      </div>
+    </section>
+
+    <!-- ---------- PROFILE ---------- -->
+    <section class="view hidden" id="view-profile">
+      <div class="card profile-hero">
+        <img class="avatar-lg" id="prAvatar" src="" alt="" />
+        <div class="profile-hero-name" id="prName">—</div>
+        <div class="profile-hero-id">ID: <span id="prUid">—</span></div>
+      </div>
+
+      <div class="card menu-card">
+        <button class="menu-row" data-nav="wallet">
+          <span class="menu-icon">💳</span>
+          <span class="menu-title">Wallet Address</span>
+          <span class="menu-chevron">›</span>
+        </button>
+        <button class="menu-row" data-nav="history">
+          <span class="menu-icon">📄</span>
+          <span class="menu-title">Payment History</span>
+          <span class="menu-chevron">›</span>
+        </button>
+        <button class="menu-row" data-nav="security">
+          <span class="menu-icon">🛡️</span>
+          <span class="menu-title">Security</span>
+          <span class="menu-chevron">›</span>
+        </button>
+        <button class="menu-row" data-nav="about">
+          <span class="menu-icon">ℹ️</span>
+          <span class="menu-title">About Us</span>
+          <span class="menu-chevron">›</span>
+        </button>
+        <button class="menu-row danger" id="logoutBtn">
+          <span class="menu-icon">🚪</span>
+          <span class="menu-title">Logout</span>
+          <span class="menu-chevron">›</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottomnav">
+    <button class="nav-btn active" data-tab="home">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 18v-7.2c0-.9.4-1.7 1.1-2.3l5.6-4.6c.8-.6 1.9-.6 2.6 0l5.6 4.6c.7.6 1.1 1.4 1.1 2.3V18a1 1 0 0 1-1 1h-3.5a.5.5 0 0 1-.5-.5V15a2.5 2.5 0 0 0-5 0v3.5a.5.5 0 0 1-.5.5H5a1 1 0 0 1-1-1Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg></span>
+      <span class="nav-lbl">Home</span>
+    </button>
+    <button class="nav-btn" data-tab="task">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M8.5 10.5l2 2 3.5-4M8 16h6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="nav-lbl">Task</span>
+    </button>
+    <button class="nav-btn nav-center" data-tab="game">
+      <span class="nav-icon-center">
+        <svg viewBox="0 0 24 24"><path d="M12 2c3 0 5.5 3 5.5 7 0 3-1.6 5-2.7 6.4-.4.5-.6.9-.6 1.4v.7a2.2 2.2 0 0 1-4.4 0v-.7c0-.5-.2-.9-.6-1.4C8.1 14 6.5 12 6.5 9 6.5 5 9 2 12 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 21h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+      <span class="nav-lbl">Game</span>
+    </button>
+    <button class="nav-btn" data-tab="friends">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="17" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M3.5 19c.5-3 2.6-5 5.5-5s5 2 5.5 5M15 19c.3-2.2 1.6-4 3.8-4.4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span>
+      <span class="nav-lbl">Friends</span>
+    </button>
+    <button class="nav-btn" data-tab="profile">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1-3.6 4-5.6 7.5-5.6s6.5 2 7.5 5.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span>
+      <span class="nav-lbl">Profile</span>
+    </button>
+  </nav>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
